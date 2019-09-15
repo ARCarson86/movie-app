@@ -12,12 +12,12 @@ class MoviesController < ApplicationController
 	end
 
 	def create
-		@movielist.movies.create!(params)
-		json_resonse(@movielist, :created)
+		@movielist.movies.create!(movie_params)
+		json_response(@movielist, :created)
 	end
 
 	def update
-		@movie.update(params)
+		@movie.update(movie_params)
 		head :no_content
 	end
 
@@ -26,6 +26,10 @@ class MoviesController < ApplicationController
 	end
 
 	private
+
+	def movie_params
+		params.permit(:name, :movielist_id, :movie)
+	end
 
 	def set_movielist
 		@movielist = Movielist.find(params[:movielist_id])
