@@ -45,7 +45,7 @@ class MovieLists extends React.Component {
 						{
 							Header: "Actions",
 							accessor: "id",
-							Cell: ({value}) => (<div className="table-actions"><a href={'/movielists/' + value}><i className="far fa-edit" /></a><a href="/" onClick={() => this.handleDestroy(value)}><i className="fas fa-trash-alt" /></a></div>),
+							Cell: ({value}) => (<div className="table-actions"><Link to={'/movielists/' + value + '/edit'}><i className="far fa-edit" /></Link><a href="/" onClick={() => this.handleDestroy(value)}><i className="fas fa-trash-alt" /></a></div>),
 						},
 					]}
 				/>
