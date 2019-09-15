@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import ReactTable from 'react-table';
+import { Link } from "react-router-dom";
 import "react-table/react-table.css";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
@@ -58,7 +59,7 @@ class MovieLists extends React.Component {
       <div className="container">
       	<div className="row">
       		<div className="col-12">
-		        <h1>Movie Lists <div className="header-actions"><a href="/movielists/new" className="btn btn-primary pull-right">Create New List</a></div></h1>
+		        <h1>Movie Lists <div className="header-actions"><Link to="/movielists/new" className="btn btn-primary">Create New List</Link></div></h1>
 		        {this.renderTable()}
 		      </div>
 		    </div>
