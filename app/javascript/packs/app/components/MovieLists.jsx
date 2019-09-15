@@ -45,7 +45,7 @@ class MovieLists extends React.Component {
 						{
 							Header: "Actions",
 							accessor: "id",
-							Cell: ({value}) => (<div className="table-actions"><Link to={'/movielists/' + value + '/edit'}><i className="far fa-edit" /></Link><a href="/" onClick={() => this.handleDestroy(value)}><i className="fas fa-trash-alt" /></a></div>),
+							Cell: ({value}) => (<div className="table-actions"><Link to={'/movielists/' + value}><i className="fas fa-plus-square" /></Link><Link to={'/movielists/' + value + '/edit'}><i className="far fa-edit" /></Link><a href="/" onClick={() => this.handleDestroy(value)}><i className="fas fa-trash-alt" /></a></div>),
 						},
 					]}
 				/>
@@ -54,7 +54,6 @@ class MovieLists extends React.Component {
 	}
 
   render() {
-  	console.log(this.state.data);
     return(
       <div className="container">
       	<div className="row">
