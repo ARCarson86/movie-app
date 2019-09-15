@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :movielists do
-    resources :movies
-  end
+  namespace :api, defaults: { format: 'json'} do
+	  resources :movielists do
+	    resources :movies
+	  end
+	end
 end
