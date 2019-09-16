@@ -78,6 +78,9 @@ class MovieList extends React.Component{
 	}
 
 	getRatingAverage(){
+		if(this.state.movies.length === 0){
+			return 0;
+		}
 		if(!this.state.isLoading){
 			let sum = 0;
 			this.state.movies.forEach((element, index) => {
