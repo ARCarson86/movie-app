@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 class MovieListsNew extends React.Component{
 	constructor(props){
@@ -44,7 +44,7 @@ class MovieListsNew extends React.Component{
 			<div className="container">
 				<div className="row">
 					<div className="col-12">
-						<h1>Create New List</h1> 
+						<h1><div className="home"><Link to='/' className="btn btn-primary">Home</Link></div> Create New List</h1> 
 						<form onSubmit={this.handleSubmit}>
 							<div className="form-group"><input placeholder="Name" type="text" defaultValue={this.state.data.name} onChange={this.handleChange} className="form-control" /></div>
 							<div className="form-group"><input type="submit" value="Create List" className="btn btn-primary" /></div>

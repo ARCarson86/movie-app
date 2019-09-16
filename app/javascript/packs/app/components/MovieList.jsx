@@ -40,25 +40,52 @@ class MovieList extends React.Component{
 		}else{
 			return(
 				<div>
-					<h1>{this.state.data.name} <div className="header-actions"><Link to={'/movielists/' + this.props.match.params.id + '/movies/new'} className="btn btn-primary">Add Movie</Link></div></h1>
+					<h1><div className="home"><Link to='/' className="btn btn-primary">Home</Link></div> {this.state.data.name} <div className="header-actions"><Link to={'/movielists/' + this.props.match.params.id + '/movies/new'} className="btn btn-primary">Add Movie</Link></div></h1>
 					<ReactTable
 						data={this.state.movies}
 						defaultPageSize={this.state.movies.length}
 						showPagination={false}
 	        	noDataText="No Results Found"
+	        	filterable
 						columns={[
 							{
 								Header: "Name",
 								accessor: "name",
+								filterMethod: (filter, row) =>
+                    row[filter.id].startsWith(filter.value)
+							},
+							{
+								Header: "Rating",
+								accessor: "rating",
+								filterable: false
+							},
+							{
+								Header: "Release Year",
+								accessor: "release_year",
+								filterable: false
 							},
 							{
 								Header: "Actions",
 								accessor: "id",
+								filterable: false,
 								Cell: ({value}) => (<div className="table-actions"><Link to={'/movielists/' + this.props.match.params.id + '/movies/' + value + '/edit'}><i className="far fa-edit" /></Link><a href="/" onClick={(e) => this.handleDestroy(e, value)}><i className="fas fa-trash-alt" /></a></div>),
 							},
 						]}
 					/>
 				</div>
+			);
+		}
+	}
+
+	getRatingAverage(){
+		if(!this.state.isLoading){
+			let sum = 0;
+			this.state.movies.forEach((element, index) => {
+				sum += element.rating;
+			});
+
+			return(
+				<div className="list-average">Average List Rating: { (sum / this.state.movies.length).toFixed(2) }</div>
 			);
 		}
 	}
@@ -69,6 +96,7 @@ class MovieList extends React.Component{
       	<div className="row">
       		<div className="col-12">
 		        {this.renderTable()}
+		        {this.getRatingAverage()}
 		      </div>
 		    </div>
       </div>

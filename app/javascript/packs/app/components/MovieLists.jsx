@@ -43,6 +43,27 @@ class MovieLists extends React.Component {
 							accessor: "name",
 						},
 						{
+							accessor: (row) => {
+								return row.movies.length
+							},
+							id: "list_count",
+							Header: "List Count"
+            },
+            {
+							accessor: (row) => {
+								if(row.movies.length === 0){
+									return 0;	
+								}
+								let sum = 0;
+								row.movies.forEach((element, index) => {
+									sum += element.rating;
+								});
+								return (sum / row.movies.length).toFixed(2);
+							},
+							id: "average_rating",
+							Header: "Average Rating"
+            },
+						{
 							Header: "Actions",
 							accessor: "id",
 							Cell: ({value}) => (<div className="table-actions"><Link to={'/movielists/' + value}><i className="fas fa-plus-square" /></Link><Link to={'/movielists/' + value + '/edit'}><i className="far fa-edit" /></Link><a href="/" onClick={() => this.handleDestroy(value)}><i className="fas fa-trash-alt" /></a></div>),

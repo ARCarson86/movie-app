@@ -2,18 +2,16 @@ import React from 'react';
 import axios from 'axios';
 import { Redirect, Link } from "react-router-dom";
 
-class MovieNew extends React.Component{
+class MovieEdit extends React.Component{
 	constructor(props){
 		super(props);
 
 		this.state = {
-			data: {
-				name: '',
-				rating: '',
-				release_year: ''
-			},
+			data: {},
 			redirect: false
 		}
+
+		this.getMovie();
 
 		this.handleNameChange = this.handleNameChange.bind(this);
 		this.handleRatingChange = this.handleRatingChange.bind(this);
@@ -21,9 +19,14 @@ class MovieNew extends React.Component{
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
+	async getMovie(){
+		const response = await axios.get('http://localhost:3000/api/movielists/' + this.props.match.params.list_id + '/movies/' + this.props.match.params.id);
+		this.setState({data: response.data, isLoading: false});
+	}
+
 	handleSubmit(event){
 		event.preventDefault();
-		axios.post('http://localhost:3000/api/movielists/' + this.props.match.params.list_id + '/movies', this.state.data).then((response) => {
+		axios.put('http://localhost:3000/api/movielists/' + this.props.match.params.list_id + '/movies/' + this.props.match.params.id, this.state.data).then((response) => {
 			this.setState({
 				redirect: true
 			});
@@ -53,6 +56,7 @@ class MovieNew extends React.Component{
 			data: data
 		})
 	}
+
 	render(){
 
 		if(this.state.redirect){
@@ -63,12 +67,12 @@ class MovieNew extends React.Component{
 			<div className="container">
 				<div className="row">
 					<div className="col-12">
-						<h1><div className="home"><Link to='/' className="btn btn-primary">Home</Link></div> Add Movie</h1> 
+						<h1><div className="home"><Link to='/' className="btn btn-primary">Home</Link></div> Edit Movie</h1> 
 						<form onSubmit={this.handleSubmit}>
 							<div className="form-group"><input placeholder="Name" type="text" defaultValue={this.state.data.name} onChange={this.handleNameChange} className="form-control" /></div>
 							<div className="form-group"><input placeholder="Rating 1-10" type="text" defaultValue={this.state.data.rating} onChange={this.handleRatingChange} className="form-control" /></div>
 							<div className="form-group"><input placeholder="Release Year" type="text" defaultValue={this.state.data.release_year} onChange={this.handleYearChange} className="form-control" /></div>
-							<div className="form-group"><input type="submit" value="Add Movie" className="btn btn-primary" /></div>
+							<div className="form-group"><input type="submit" value="Update Movie" className="btn btn-primary" /></div>
 						</form>
 					</div>
 				</div>
@@ -77,4 +81,4 @@ class MovieNew extends React.Component{
 	}
 }
 
-export default MovieNew
+export default MovieEdit

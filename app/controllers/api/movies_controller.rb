@@ -28,7 +28,7 @@ class Api::MoviesController < ApplicationController
 	private
 
 	def movie_params
-		params.permit(:name, :movielist_id, :movie)
+		params.permit(:name, :movielist_id, :movie, :id, :rating, :release_year)
 	end
 
 	def set_movielist
