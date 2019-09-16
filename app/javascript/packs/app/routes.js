@@ -4,6 +4,7 @@ import MovieLists from './components/MovieLists';
 import MovieListsNew from './components/MovieListsNew';
 import MovieListsEdit from './components/MovieListsEdit';
 import MovieList from './components/MovieList';
+import MovieNew from './components/MovieNew';
 
 const AppRouter = (props) => (
   <BrowserRouter>
@@ -13,6 +14,7 @@ const AppRouter = (props) => (
         <Route path='/movielists/new' exact component={MovieListsNew} />
         <Route path='/movielists/:id/edit' exact component={MovieListsEdit} />
         <Route path='/movielists/:id' exact component={MovieList} />
+        <Route path='/movielists/:list_id/movies/new' exact component={MovieNew} />
 	    </Switch>
     </div>
   </BrowserRouter>

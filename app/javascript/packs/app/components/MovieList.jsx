@@ -59,7 +59,6 @@ class MovieList extends React.Component{
 	}
 
 	render() {
-  	console.log(this.state.movies);
     return(
       <div className="container">
       	<div className="row">
