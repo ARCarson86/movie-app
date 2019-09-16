@@ -16,6 +16,8 @@ class MovieList extends React.Component{
 		}
 
 		this.getData();
+
+		this.handleDestroy = this.handleDestroy.bind(this);
 	}
 
 	async getData(){
@@ -24,9 +26,12 @@ class MovieList extends React.Component{
 		this.setState({data: response.data, movies: movies.data, isLoading: false});
 	}
 
-	handleDestroy(id){
+	handleDestroy(event, id){
+		event.preventDefault();
 		this.setState({isLoading:true});
-		axios.delete('http://localhost:3000/api/movielists/'+ this.props.match.params.id + '/movies/'+id);
+		axios.delete('http://localhost:3000/api/movielists/'+ this.props.match.params.id + '/movies/'+id).then(() => {
+			this.getData();
+		});
 	}
 
 	renderTable(){
@@ -49,7 +54,7 @@ class MovieList extends React.Component{
 							{
 								Header: "Actions",
 								accessor: "id",
-								Cell: ({value}) => (<div className="table-actions"><Link to={'/movielists/' + this.props.match.params.id + '/movies/' + value + '/edit'}><i className="far fa-edit" /></Link><a href="/" onClick={() => this.handleDestroy(value)}><i className="fas fa-trash-alt" /></a></div>),
+								Cell: ({value}) => (<div className="table-actions"><Link to={'/movielists/' + this.props.match.params.id + '/movies/' + value + '/edit'}><i className="far fa-edit" /></Link><a href="/" onClick={(e) => this.handleDestroy(e, value)}><i className="fas fa-trash-alt" /></a></div>),
 							},
 						]}
 					/>
